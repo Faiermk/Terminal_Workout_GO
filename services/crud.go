@@ -1,21 +1,68 @@
 package services
 
 import (
+	"bufio"
 	"fmt"
+	"os"
+	"strings"
 	"tubes/models"
 )
+
+func generateID(data []models.Workout) int {
+	maxID := 0
+	for _, w := range data {
+		if w.ID > maxID {
+			maxID = w.ID
+		}
+	}
+	return maxID + 1
+}
 
 func TambahWorkout() {
 	data := LoadData()
 	var w models.Workout
 
-	w.ID = len(data) + 1
-	fmt.Print("Tanggal: "); fmt.Scan(&w.Tanggal)
-	fmt.Print("Nama: "); fmt.Scan(&w.Nama)
-	fmt.Print("Jenis: "); fmt.Scan(&w.Jenis)
-	fmt.Print("Durasi: "); fmt.Scan(&w.Durasi)
-	fmt.Print("Kalori: "); fmt.Scan(&w.Kalori)
-	fmt.Print("Catatan: "); fmt.Scan(&w.Catatan)
+	reader := bufio.NewReader(os.Stdin)
+
+	w.ID = generateID(data)
+
+	fmt.Print("Tanggal (YYYY-MM-DD): ")
+	fmt.Scan(&w.Tanggal)
+
+	fmt.Print("Nama Workout: ")
+	fmt.Scan(&w.Nama)
+	
+	jenisList := []string{"Strength", "Cardio", "Flexibility", "Balance", "HIIT"}
+	var pilihan int
+
+	for {
+		fmt.Println("Pilih Jenis:")
+		for i, j := range jenisList {
+			fmt.Printf("%d. %s\n", i+1, j)
+		}
+
+		fmt.Print("Pilih (1-5): ")
+		fmt.Scan(&pilihan)
+
+		if pilihan >= 1 && pilihan <= len(jenisList) {
+			w.Jenis = jenisList[pilihan-1]
+			break
+		}
+
+		fmt.Println("Pilihan tidak valid, coba lagi!\n")
+	}
+
+	fmt.Print("Durasi (menit): ")
+	fmt.Scan(&w.Durasi)
+
+	fmt.Print("Kalori: ")
+	fmt.Scan(&w.Kalori)
+
+
+	fmt.Print("Catatan: ")
+	reader.ReadString('\n') // clear buffer
+	catatan, _ := reader.ReadString('\n')
+	w.Catatan = strings.TrimSpace(catatan)
 
 	data = append(data, w)
 	SaveData(data)
@@ -25,41 +72,62 @@ func TambahWorkout() {
 
 func LihatWorkout() {
 	data := LoadData()
+
+	fmt.Println("\n=== DATA WORKOUT ===")
+	if len(data) == 0 {
+		fmt.Println("Belum ada data.")
+		return
+	}
+
 	for _, w := range data {
-		fmt.Println(w)
+		fmt.Printf("ID: %d | %s | %s | %s | %d menit | %d kalori | %s\n",
+			w.ID, w.Tanggal, w.Nama, w.Jenis, w.Durasi, w.Kalori, w.Catatan)
 	}
 }
 
 func UpdateWorkout() {
 	data := LoadData()
 	var id int
-	fmt.Print("Masukkan ID: ")
+
+	fmt.Print("Masukkan ID yang ingin diupdate: ")
 	fmt.Scan(&id)
 
 	for i := range data {
 		if data[i].ID == id {
-			fmt.Print("Nama baru: "); fmt.Scan(&data[i].Nama)
+
+			fmt.Print("Nama baru: ")
+			fmt.Scan(&data[i].Nama)
+
+			fmt.Print("Durasi baru: ")
+			fmt.Scan(&data[i].Durasi)
+
+			fmt.Print("Kalori baru: ")
+			fmt.Scan(&data[i].Kalori)
+
 			SaveData(data)
-			fmt.Println("Berhasil update!")
+			fmt.Println("Data berhasil diupdate!")
 			return
 		}
 	}
+
 	fmt.Println("Data tidak ditemukan")
 }
 
 func HapusWorkout() {
 	data := LoadData()
 	var id int
-	fmt.Print("Masukkan ID: ")
+
+	fmt.Print("Masukkan ID yang ingin dihapus: ")
 	fmt.Scan(&id)
 
 	for i := range data {
 		if data[i].ID == id {
 			data = append(data[:i], data[i+1:]...)
 			SaveData(data)
-			fmt.Println("Berhasil hapus!")
+			fmt.Println("Data berhasil dihapus!")
 			return
 		}
 	}
+
 	fmt.Println("Data tidak ditemukan")
 }

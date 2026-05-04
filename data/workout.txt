@@ -1,1 +1,4 @@
 1|25|Fair|Cardio|10|2500|Push-Up
+3|15|Hui|Flexibility|10|250|Lompat
+2|20|Tuku|1|10|540|Pull
+5|2026-06-20|Pushup|Strength|10|2500|-
