@@ -1,39 +1,94 @@
 package services
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
+// Sequential Search (berdasarkan jenis)
 func SequentialSearch() {
 	data := LoadData()
 	var jenis string
-	fmt.Print("Cari jenis: ")
+	found := false
+
+	if len(data) == 0 {
+		fmt.Println("Data kosong")
+		return
+	}
+
+	// 🔹 kasih pilihan ke user
+	fmt.Println("\nJenis yang tersedia:")
+	fmt.Println("1. Strength")
+	fmt.Println("2. Cardio")
+	fmt.Println("3. Flexibility")
+	fmt.Println("4. Balance")
+	fmt.Println("5. HIIT")
+
+	fmt.Print("\nCari jenis workout: ")
 	fmt.Scan(&jenis)
 
+	fmt.Println("\n=== HASIL PENCARIAN ===")
 	for _, w := range data {
-		if w.Jenis == jenis {
-			fmt.Println(w)
+		if strings.EqualFold(w.Jenis, jenis) {
+			fmt.Printf("ID: %d | %s | %s | %s | %d menit | %d kalori | %s\n",
+				w.ID, w.Tanggal, w.Nama, w.Jenis, w.Durasi, w.Kalori, w.Catatan)
+			found = true
 		}
+	}
+
+	if !found {
+		fmt.Println("Data tidak ditemukan")
 	}
 }
 
+// Binary Search (berdasarkan nama)
 func BinarySearch() {
 	data := LoadData()
-	SelectionSort()
+	n := len(data)
+
+	if n == 0 {
+		fmt.Println("Data kosong")
+		return
+	}
+
+	// 🔹 tampilkan data dulu
+	fmt.Println("\n=== DAFTAR WORKOUT ===")
+	for _, w := range data {
+		fmt.Printf("- %s\n", w.Nama)
+	}
+
+	// 🔹 sorting lokal (wajib untuk binary)
+	for i := 0; i < n-1; i++ {
+		min := i
+		for j := i + 1; j < n; j++ {
+			if strings.ToLower(data[j].Nama) < strings.ToLower(data[min].Nama) {
+				min = j
+			}
+		}
+		data[i], data[min] = data[min], data[i]
+	}
 
 	var nama string
-	fmt.Print("Cari nama: ")
+	fmt.Print("\nCari nama workout (contoh: Push Up): ")
 	fmt.Scan(&nama)
 
-	low, high := 0, len(data)-1
+	low, high := 0, n-1
+
 	for low <= high {
 		mid := (low + high) / 2
-		if data[mid].Nama == nama {
-			fmt.Println(data[mid])
+
+		if strings.EqualFold(data[mid].Nama, nama) {
+			fmt.Println("\n=== DATA DITEMUKAN ===")
+			fmt.Printf("ID: %d | %s | %s | %s | %d menit | %d kalori | %s\n",
+				data[mid].ID, data[mid].Tanggal, data[mid].Nama,
+				data[mid].Jenis, data[mid].Durasi, data[mid].Kalori, data[mid].Catatan)
 			return
-		} else if data[mid].Nama < nama {
+		} else if strings.ToLower(data[mid].Nama) < strings.ToLower(nama) {
 			low = mid + 1
 		} else {
 			high = mid - 1
 		}
 	}
-	fmt.Println("Tidak ditemukan")
+
+	fmt.Println("Data tidak ditemukan")
 }
