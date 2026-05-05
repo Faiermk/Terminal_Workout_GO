@@ -26,11 +26,15 @@ func TambahWorkout() {
 
 	w.ID = generateID(data)
 
-	fmt.Print("Tanggal (YYYY-MM-DD): ")
-	fmt.Scan(&w.Tanggal)
+    reader.ReadString('\n')
+
+	fmt.Print("Tanggal (DD-MM-YYYY): ")
+    w.Tanggal, _ = reader.ReadString('\n')
+    w.Tanggal = strings.TrimSpace(w.Tanggal)
 
 	fmt.Print("Nama Workout: ")
-	fmt.Scan(&w.Nama)
+    w.Nama, _ = reader.ReadString('\n')
+    w.Nama = strings.TrimSpace(w.Nama)
 	
 	jenisList := []string{"Strength", "Cardio", "Flexibility", "Balance", "HIIT"}
 	var pilihan int
@@ -60,7 +64,7 @@ func TambahWorkout() {
 
 
 	fmt.Print("Catatan: ")
-	reader.ReadString('\n') // clear buffer
+	reader.ReadString('\n')
 	catatan, _ := reader.ReadString('\n')
 	w.Catatan = strings.TrimSpace(catatan)
 
