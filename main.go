@@ -2,10 +2,33 @@ package main
 
 import (
 	"fmt"
+	"tubes/models"
 	"tubes/services"
 )
 
 func main() {
+	var currentUser *models.User
+
+	for currentUser == nil {
+		fmt.Println("=== TERMINAL WORKOUT ===")
+		fmt.Println("1. Login")
+		fmt.Println("2. Register")
+		fmt.Println("0. Keluar")
+		fmt.Print("Pilih: ")
+
+		var pilihAuth int
+		fmt.Scan(&pilihAuth)
+
+		switch pilihAuth {
+			case 1:
+				currentUser = services.Login()
+			case 2:
+				services.Register()
+			case 0: 
+				return
+		}
+	}
+
 	var pilih int
 
 	for {
@@ -43,7 +66,26 @@ func main() {
 		case 9:
 			services.Laporan()
 		case 0:
-			return
+		currentUser = nil
+		for currentUser == nil {
+			fmt.Println("\n=== TERMINAL WORKOUT ===")
+			fmt.Println("1. Login")
+			fmt.Println("2. Registrasi")
+			fmt.Println("0. Keluar")
+			fmt.Print("Pilih: ")
+
+			var pilihAuth int
+			fmt.Scan(&pilihAuth)
+
+			switch pilihAuth {
+			case 1:
+				currentUser = services.Login()
+			case 2:
+				services.Register()
+			case 0: 
+				return
+			}
+			}
 		}
 	}
 }
