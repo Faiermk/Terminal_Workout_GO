@@ -13,7 +13,7 @@ func SelectionSort() {
 
 	var pilihan int
 
-	fmt.Println("=== PILIH SORTING ===")
+	fmt.Println("-----PILIH SORTING-----")
 	fmt.Println("1. Berdasarkan Nama")
 	fmt.Println("2. Berdasarkan Durasi")
 	fmt.Println("3. Berdasarkan Kalori")
@@ -69,8 +69,8 @@ func SelectionSort() {
 	// simpan hasil sorting
 	SaveData(data)
 
-	//langsung tampilkan hasil
-	fmt.Println("\n=== HASIL SORTING ===")
+	//untuk menampilkan hasil
+	fmt.Println("\n-----HASIL SORTING-----")
 	for _, w := range data {
 		fmt.Printf("ID: %d | %s | %s | %s | %d menit | %d kalori | %s\n",
 			w.ID, w.Tanggal, w.Nama, w.Jenis, w.Durasi, w.Kalori, w.Catatan)

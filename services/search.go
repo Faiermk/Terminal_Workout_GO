@@ -27,7 +27,7 @@ func SequentialSearch() {
 	fmt.Print("\nCari jenis workout: ")
 	fmt.Scan(&jenis)
 
-	fmt.Println("\n=== HASIL PENCARIAN ===")
+	fmt.Println("\n-----HASIL PENCARIAN-----")
 	for _, w := range data {
 		if strings.EqualFold(w.Jenis, jenis) {
 			fmt.Printf("ID: %d | %s | %s | %s | %d menit | %d kalori | %s\n",
@@ -52,7 +52,7 @@ func BinarySearch() {
 	}
 
 	// 🔹 tampilkan data dulu
-	fmt.Println("\n=== DAFTAR WORKOUT ===")
+	fmt.Println("\n-----DAFTAR WORKOUT-----")
 	for _, w := range data {
 		fmt.Printf("- %s\n", w.Nama)
 	}
@@ -78,7 +78,7 @@ func BinarySearch() {
 		mid := (low + high) / 2
 
 		if strings.EqualFold(data[mid].Nama, nama) {
-			fmt.Println("\n=== DATA DITEMUKAN ===")
+			fmt.Println("\n-----DATA DITEMUKAN-----")
 			fmt.Printf("ID: %d | %s | %s | %s | %d menit | %d kalori | %s\n",
 				data[mid].ID, data[mid].Tanggal, data[mid].Nama,
 				data[mid].Jenis, data[mid].Durasi, data[mid].Kalori, data[mid].Catatan)

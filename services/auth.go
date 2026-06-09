@@ -92,6 +92,6 @@ func Login() *models.User {
 		}
 	}
 
-	fmt.Println("USERNAME ATAU PASSWORD SALAH!")
+	fmt.Println("USERNAME TIDAK DITEMUKAN ATAU PASSWORD SALAH!")
 	return nil
 }

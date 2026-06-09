@@ -10,7 +10,7 @@ func main() {
 	var currentUser *models.User
 
 	for currentUser == nil {
-		fmt.Println("=== TERMINAL WORKOUT ===")
+		fmt.Println("-----TERMINAL WORKOUT-----")
 		fmt.Println("1. Login")
 		fmt.Println("2. Register")
 		fmt.Println("0. Keluar")
@@ -32,7 +32,7 @@ func main() {
 	var pilih int
 
 	for {
-		fmt.Println("=== APLIKASI WORKOUT ===")
+		fmt.Println("-----APLIKASI WORKOUT-----")
 		fmt.Println("1. Tambah")
 		fmt.Println("2. Lihat")
 		fmt.Println("3. Update")
@@ -68,7 +68,7 @@ func main() {
 		case 0:
 		currentUser = nil
 		for currentUser == nil {
-			fmt.Println("\n=== TERMINAL WORKOUT ===")
+			fmt.Println("\n-----TERMINAL WORKOUT-----")
 			fmt.Println("1. Login")
 			fmt.Println("2. Registrasi")
 			fmt.Println("0. Keluar")

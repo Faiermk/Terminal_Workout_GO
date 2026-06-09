@@ -77,7 +77,7 @@ func TambahWorkout() {
 func LihatWorkout() {
 	data := LoadData()
 
-	fmt.Println("\n=== DATA WORKOUT ===")
+	fmt.Println("\n-----DATA WORKOUT-----")
 	if len(data) == 0 {
 		fmt.Println("Belum ada data.")
 		return
@@ -93,14 +93,19 @@ func UpdateWorkout() {
 	data := LoadData()
 	var id int
 
+	reader := bufio.NewReader(os.Stdin)
+
 	fmt.Print("Masukkan ID yang ingin diupdate: ")
 	fmt.Scan(&id)
+	reader.ReadString('\n') 
 
 	for i := range data {
 		if data[i].ID == id {
 
 			fmt.Print("Nama baru: ")
-			fmt.Scan(&data[i].Nama)
+			namaBaru, _ := reader.ReadString('\n')
+			data[i].Nama = strings.TrimSpace(namaBaru)
+			// fmt.Scan(&data[i].Nama)
 
 			fmt.Print("Durasi baru: ")
 			fmt.Scan(&data[i].Durasi)

@@ -28,7 +28,7 @@ func RekomendasiWorkout() {
 		}
 	}
 
-	fmt.Println("\n=== REKOMENDASI WORKOUT ===")
+	fmt.Println("\n-----REKOMENDASI WORKOUT-----")
 	for _, r := range rekomList {
 		fmt.Printf("- %s (%d kali dilakukan)\n", r, max)
 	}
