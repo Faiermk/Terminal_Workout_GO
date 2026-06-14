@@ -1,11 +1,13 @@
 package services
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 	"strings"
 )
 
-// Sequential Search (berdasarkan jenis)
+// Sequential Search (berdasarkan jenis workout)
 func SequentialSearch() {
 	data := LoadData()
 	var jenis string
@@ -16,7 +18,7 @@ func SequentialSearch() {
 		return
 	}
 
-	// 🔹 kasih pilihan ke user
+	// kasih pilihan ke user
 	fmt.Println("\nJenis yang tersedia:")
 	fmt.Println("1. Strength")
 	fmt.Println("2. Cardio")
@@ -24,8 +26,23 @@ func SequentialSearch() {
 	fmt.Println("4. Balance")
 	fmt.Println("5. HIIT")
 
-	fmt.Print("\nCari jenis workout: ")
-	fmt.Scan(&jenis)
+	jenisList := []string{"Strength", "Cardio", "Flexibility", "Balance", "HIIT"}
+	var pilihan int
+
+	fmt.Print("\nPilih jenis workout: ")
+	fmt.Scan(&pilihan)
+	fmt.Scanln()
+
+	if pilihan < 1 || pilihan > len(jenisList) {
+		fmt.Println("Pilihan tidak valid")
+		return
+	}
+
+	jenis = jenisList[pilihan-1]
+
+
+	// fmt.Print("\nCari jenis workout: ")
+	// fmt.Scan(&jenis)
 
 	fmt.Println("\n-----HASIL PENCARIAN-----")
 	for _, w := range data {
@@ -41,7 +58,7 @@ func SequentialSearch() {
 	}
 }
 
-// Binary Search (berdasarkan nama)
+// Binary Search (berdasarkan nama workout)
 func BinarySearch() {
 	data := LoadData()
 	n := len(data)
@@ -51,13 +68,13 @@ func BinarySearch() {
 		return
 	}
 
-	// 🔹 tampilkan data dulu
+	// tampilkan data dulu
 	fmt.Println("\n-----DAFTAR WORKOUT-----")
 	for _, w := range data {
 		fmt.Printf("- %s\n", w.Nama)
 	}
 
-	// 🔹 sorting lokal (wajib untuk binary)
+	// sorting lokal (wajib untuk binary)
 	for i := 0; i < n-1; i++ {
 		min := i
 		for j := i + 1; j < n; j++ {
@@ -68,9 +85,13 @@ func BinarySearch() {
 		data[i], data[min] = data[min], data[i]
 	}
 
+	reader := bufio.NewReader(os.Stdin)
+
 	var nama string
 	fmt.Print("\nCari nama workout (contoh: Push Up): ")
-	fmt.Scan(&nama)
+	// fmt.Scan(&nama)
+	nama, _ = reader.ReadString('\n')
+	nama = strings.TrimSpace(nama)
 
 	low, high := 0, n-1
 

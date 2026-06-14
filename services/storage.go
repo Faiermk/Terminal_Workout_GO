@@ -51,7 +51,11 @@ func LoadData() []models.Workout {
 }
 
 func SaveData(data []models.Workout) {
-	file, _ := os.Create(filePath)
+	file, err := os.Create(filePath)
+	if err != nil {
+		fmt.Println("Gagal menyimpan data:", err)
+		return
+	}
 	defer file.Close()
 
 	writer := bufio.NewWriter(file)

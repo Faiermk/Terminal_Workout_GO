@@ -38,12 +38,16 @@ func loadUsers() []models.User {
 }
 
 func saveUsers(users []models.User) {
-	file, _ := os.Create(userFilePath)
+	file, err := os.Create(userFilePath)
+	if err != nil {
+		fmt.Println("Gagal menyimpan data:", err)
+		return
+	}
 	defer file.Close()
 
 	writer := bufio.NewWriter(file)
 	for _, u :=	range users {
-	line := fmt.Sprintf("%d|%s|%s\n", u.ID, u.Username, u.Password)
+		line := fmt.Sprintf("%d|%s|%s\n", u.ID, u.Username, u.Password)
 		writer.WriteString(line)
 	}
 	writer.Flush()
@@ -53,8 +57,12 @@ func Register() {
 	users := loadUsers()
 	var Username, Password string
 
+	reader := bufio.NewReader(os.Stdin)
+
 	fmt.Print("Username: ")
-	fmt.Scan(&Username)
+	Username, _ = reader.ReadString('\n')
+	Username = strings.TrimSpace(Username)
+	// fmt.Scan(&Username)
 
 	for _, u := range users {
 		if u.Username == Username {
@@ -63,8 +71,20 @@ func Register() {
 		}
 	}
 
+	if Username == "" {
+		fmt.Println("Username tidak boleh kosong!")
+		return
+	}
+
 	fmt.Print("Password: ")
-	fmt.Scan(&Password)
+	Password, _ = reader.ReadString('\n')
+	Password = strings.TrimSpace(Password)
+	// fmt.Scan(&Password)
+
+	if Password == "" {
+		fmt.Println("Password tidak boleh kosong!")
+		return
+	}
 
 	newUser := models.User{
 		ID:		len(users) + 1,
@@ -78,12 +98,19 @@ func Register() {
 
 func Login() *models.User {
 	users := loadUsers()
+
 	var Username, Password string
+	reader := bufio.NewReader(os.Stdin)
 
 	fmt.Print("Username: ")
-	fmt.Scan(&Username)
+	// fmt.Scan(&Username)
+	Username, _ = reader.ReadString('\n')
+	Username = strings.TrimSpace(Username)
+
 	fmt.Print("Password: ")
-	fmt.Scan(&Password)
+	// fmt.Scan(&Password)
+	Password, _ = reader.ReadString('\n')
+	Password = strings.TrimSpace(Password)
 
 	for i, u := range users {
 		if u.Username == Username && u.Password == Password {
