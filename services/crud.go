@@ -123,7 +123,7 @@ func UpdateWorkout() {
 			fmt.Println("5. Update Kalori")
 			fmt.Println("6. Update Catatan")
 			fmt.Println("7. Update Semua Data")
-			fmt.Print("Pilih: ")
+			fmt.Print("Pilih (1-7): ")
 
 			inputPilihan, _ := reader.ReadString('\n')
 			inputPilihan = strings.TrimSpace(inputPilihan)

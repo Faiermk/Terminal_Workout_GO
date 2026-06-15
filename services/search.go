@@ -29,7 +29,7 @@ func SequentialSearch() {
 	jenisList := []string{"Strength", "Cardio", "Flexibility", "Balance", "HIIT"}
 	var pilihan int
 
-	fmt.Print("\nPilih jenis workout: ")
+	fmt.Print("\nPilih jenis workout (1-5): ")
 	fmt.Scan(&pilihan)
 	fmt.Scanln()
 

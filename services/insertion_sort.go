@@ -19,7 +19,7 @@ func InsertionSort() {
 	fmt.Println("1. Berdasarkan ID")
 	fmt.Println("2. Berdasarkan Durasi Workout")
 	fmt.Println("3. Berdasarkan Kalori")
-	fmt.Print("Pilih: ")
+	fmt.Print("Pilih (1-3): ")
 	fmt.Scan(&pilihan)
 	fmt.Scanln()
 

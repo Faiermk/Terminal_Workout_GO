@@ -46,7 +46,7 @@ func main() {
 		fmt.Println("10. Laporan")
 		fmt.Println("11. Recursive")
 		fmt.Println("0. Keluar")
-		fmt.Print("Pilih: ")
+		fmt.Print("Pilih (0-11): ")
 		fmt.Scan(&pilih)
 		fmt.Scanln()
 
@@ -80,7 +80,7 @@ func main() {
 				fmt.Println("1. Login")
 				fmt.Println("2. Registrasi")
 				fmt.Println("0. Keluar")
-				fmt.Print("Pilih: ")
+				fmt.Print("Pilih (0-2): ")
 
 				var pilihAuth int
 				fmt.Scan(&pilihAuth)
