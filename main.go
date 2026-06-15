@@ -7,8 +7,11 @@ import (
 )
 
 func main() {
+	// currentUser menyimpan data user yang sedang login
+	// nilnya nil jika belum login
 	var currentUser *models.User
 
+	// loop autentikasi — terus minta login/register sampai berhasil login
 	for currentUser == nil {
 		fmt.Println("-----TERMINAL WORKOUT-----")
 		fmt.Println("1. Login")
@@ -22,6 +25,7 @@ func main() {
 
 		switch pilihAuth {
 			case 1:
+				// Login mengembalikan pointer User jika berhasil, nil jika gagal
 				currentUser = services.Login()
 			case 2:
 				services.Register()
@@ -32,6 +36,7 @@ func main() {
 
 	var pilih int
 
+	// loop utama aplikasi, jadi program bakal berjalan terus selama user tidak logout
 	for {
 		fmt.Println("-----APLIKASI WORKOUT-----")
 		fmt.Println("1. Tambah")
@@ -45,6 +50,8 @@ func main() {
 		fmt.Println("9. Rekomendasi")
 		fmt.Println("10. Laporan")
 		fmt.Println("11. Recursive")
+		fmt.Println("12. Statistik Workout")
+		fmt.Println("13. Filter by Tanggal")
 		fmt.Println("0. Keluar")
 		fmt.Print("Pilih (0-11): ")
 		fmt.Scan(&pilih)
@@ -73,6 +80,10 @@ func main() {
 			services.Laporan()
 		case 11:
 			services.MenuRekursif()
+		case 12:
+			services.StatistikWorkout()
+		case 13:
+			services.FilterTanggal()
 		case 0:
 			currentUser = nil
 			for currentUser == nil {

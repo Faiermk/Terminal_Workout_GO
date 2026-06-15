@@ -1,6 +1,8 @@
-5|02-06-2026|Plank|Strength|20|450|GYM
+1|06-04-2026|Sit Up|Strength|15|3500|Dilakukan dikamar
+2|06-04-2026|Push Up|Strength|30|5000|Dilakukan diteras
 3|06-04-2026|Plank|Strength|10|4500|Dilakukan diteras
 4|09-06-2026|Pull Up|Strength|15|1090|Teras
-2|06-04-2026|Push Up|Strength|30|5000|Dilakukan diteras
-1|06-04-2026|Sit Up|Strength|15|3500|Dilakukan dikamar
-6|02-07-2026|lari santai|Cardio|23|346|bolak balik komplek
+5|01-01-2026|Push Up|Strength|10|1000|Bisa dilakukan dirumah
+6|03-01-2026|Renang|Strength|90|1900|Dilakukan dikolam renang
+7|02-06-2026|Plank|Strength|20|450|GYM
+8|02-07-2026|lari santai|Cardio|23|346|bolak balik komplek

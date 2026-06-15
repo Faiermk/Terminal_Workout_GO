@@ -2,3 +2,5 @@
 2|fida|111
 3|Fair|123
 4|Satria Aji|1234
+5|lia3kali|22
+6|fr1|111
