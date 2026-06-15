@@ -20,6 +20,7 @@ func FilterTanggal() {
 
 	var tanggal string
 	fmt.Scan(&tanggal)
+	fmt.Scanln() // untuk buang newline setelah input tanggal
 
 	found := false
 	fmt.Println("\n=== HASIL FILTER ===")

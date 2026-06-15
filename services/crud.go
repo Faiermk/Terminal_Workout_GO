@@ -22,56 +22,85 @@ func generateID(data []models.Workout) int {
 func TambahWorkout() {
 	data := LoadData()
 	var w models.Workout
+	var input string
 
 	reader := bufio.NewReader(os.Stdin)
 
 	w.ID = generateID(data)
 
 	fmt.Print("Tanggal (DD-MM-YYYY): ")
-    w.Tanggal, _ = reader.ReadString('\n')
-    w.Tanggal = strings.TrimSpace(w.Tanggal)
+	w.Tanggal, _ = reader.ReadString('\n')
+	w.Tanggal = strings.TrimSpace(w.Tanggal)
+
+	if w.Tanggal == "" {
+		fmt.Println("Tanggal tidak boleh kosong.")
+		return
+	}
 
 	fmt.Print("Nama Workout: ")
-    w.Nama, _ = reader.ReadString('\n')
-    w.Nama = strings.TrimSpace(w.Nama)
-	
+	w.Nama, _ = reader.ReadString('\n')
+	w.Nama = strings.TrimSpace(w.Nama)
+
+	if w.Nama == "" {
+		fmt.Println("Nama workout tidak boleh kosong.")
+		return
+	}
+
 	jenisList := []string{"Strength", "Cardio", "Flexibility", "Balance", "HIIT"}
 	var pilihan int
 
 	for {
-		fmt.Println("Pilih Jenis:")
-		for i, j := range jenisList {
-			fmt.Printf("%d. %s\n", i+1, j)
-		}
-
+		fmt.Println("\nPilih Jenis Workout:")
+		fmt.Println("1. Strength")
+		fmt.Println("2. Cardio")
+		fmt.Println("3. Flexibility")
+		fmt.Println("4. Balance")
+		fmt.Println("5. HIIT")
 		fmt.Print("Pilih (1-5): ")
-		fmt.Scan(&pilihan)
-		fmt.Scanln() 
 
-		if pilihan >= 1 && pilihan <= len(jenisList) {
+		input, _ = reader.ReadString('\n')
+		input = strings.TrimSpace(input)
+
+		pilihan, _ = strconv.Atoi(input)
+
+		if pilihan >= 1 && pilihan <= 5 {
 			w.Jenis = jenisList[pilihan-1]
 			break
 		}
 
-		fmt.Println("Pilihan tidak valid, coba lagi!\n")
+		fmt.Println("Pilihan tidak valid, coba lagi!")
 	}
 
 	fmt.Print("Durasi (menit): ")
-	fmt.Scan(&w.Durasi)
+	input, _ = reader.ReadString('\n')
+	input = strings.TrimSpace(input)
+
+	durasi, err := strconv.Atoi(input)
+	if err != nil || durasi <= 0 {
+		fmt.Println("Durasi harus berupa angka positif.")
+		return
+	}
+	w.Durasi = durasi
 
 	fmt.Print("Kalori: ")
-	fmt.Scan(&w.Kalori)
+	input, _ = reader.ReadString('\n')
+	input = strings.TrimSpace(input)
 
+	kalori, err := strconv.Atoi(input)
+	if err != nil || kalori <= 0 {
+		fmt.Println("Kalori harus berupa angka positif.")
+		return
+	}
+	w.Kalori = kalori
 
 	fmt.Print("Catatan: ")
-	reader.ReadString('\n')
-	catatan, _ := reader.ReadString('\n')
-	w.Catatan = strings.TrimSpace(catatan)
+	w.Catatan, _ = reader.ReadString('\n')
+	w.Catatan = strings.TrimSpace(w.Catatan)
 
 	data = append(data, w)
 	SaveData(data)
 
-	fmt.Println("Data berhasil ditambahkan!")
+	fmt.Println("Data workout berhasil ditambahkan!")
 }
 
 func LihatWorkout() {
@@ -254,6 +283,7 @@ func HapusWorkout() {
 
 	fmt.Print("Masukkan ID yang ingin dihapus: ")
 	fmt.Scan(&id)
+	fmt.Scanln()
 
 	for i := range data {
 		if data[i].ID == id {

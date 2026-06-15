@@ -1,35 +1,53 @@
 package services
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
+
 
 func RekomendasiWorkout() {
 	data := LoadData()
 
 	if len(data) == 0 {
-		fmt.Println("Belum ada data workout")
+		fmt.Println("Data workout masih kosong.")
 		return
 	}
 
-	count := make(map[string]int)
+	frekuensi := make(map[string]int)
+	namaAsli := make(map[string]string)
 
 	for _, w := range data {
-		count[w.Nama]++
-	}
+		namaKey := strings.ToLower(strings.TrimSpace(w.Nama))
 
-	max := 0
-	var rekomList []string
+		if namaKey == "" {
+			continue
+		}
 
-	for nama, jumlah := range count {
-		if jumlah > max {
-			max = jumlah
-			rekomList = []string{nama}
-		} else if jumlah == max {
-			rekomList = append(rekomList, nama)
+		frekuensi[namaKey]++
+
+		if namaAsli[namaKey] == "" {
+			namaAsli[namaKey] = w.Nama
 		}
 	}
 
-	fmt.Println("\n-----REKOMENDASI WORKOUT-----")
-	for _, r := range rekomList {
-		fmt.Printf("- %s (%d kali dilakukan)\n", r, max)
+	var rekomendasi string
+	var jumlahTerbanyak int
+
+	for nama, jumlah := range frekuensi {
+		if jumlah > jumlahTerbanyak {
+			jumlahTerbanyak = jumlah
+			rekomendasi = nama
+		}
 	}
+
+	if rekomendasi == "" {
+		fmt.Println("Belum ada data workout yang bisa direkomendasikan.")
+		return
+	}
+
+	fmt.Println("-----REKOMENDASI WORKOUT-----")
+	fmt.Println("Workout yang paling sering dilakukan:", namaAsli[rekomendasi])
+	fmt.Println("Jumlah dilakukan:", jumlahTerbanyak, "kali")
+	fmt.Println("Rekomendasi: Pertahankan latihan", namaAsli[rekomendasi], "karena paling sering dilakukan.")
 }

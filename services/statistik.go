@@ -57,6 +57,7 @@ func StatistikWorkout() {
 
 	var pilih int
 	fmt.Scan(&pilih)
+	fmt.Scanln() // untuk buang newline setelah input angka
 
 	switch pilih {
 	case 1:
