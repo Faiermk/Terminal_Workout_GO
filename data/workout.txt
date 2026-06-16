@@ -6,4 +6,5 @@
 6|03-01-2026|Renang|Strength|90|1900|Dilakukan dikolam renang
 7|02-06-2026|Plank|Strength|20|450|GYM
 8|02-07-2026|lari santai|Cardio|23|346|bolak balik komplek
-9|08-08-2026|Angkat Barbel|Strength|23|670|dilakukan diteras rumah
+9|03-09-2026|Jogging|Cardio|50|450|memutar komplek
+10|07-08-2026|Lari Pagi|Cardio|30|170|memutari komplek

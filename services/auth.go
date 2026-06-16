@@ -77,39 +77,35 @@ func Register() {
 	fmt.Print("Username: ")
 	Username, _ = reader.ReadString('\n')
 	Username = strings.TrimSpace(Username)
-	// fmt.Scan(&Username)
-
-	// cek apakah username sudah dipakai
-	for _, u := range users {
-		if u.Username == Username {
-			fmt.Println("USERNAME SUDAH DIPAKAI!")
-			return
-		}
-	}
 
 	if Username == "" {
 		fmt.Println("Username tidak boleh kosong!")
 		return
 	}
 
+	// cek apakah username sudah dipakai tanpa membedakan huruf besar/kecil
+	for _, u := range users {
+		if strings.EqualFold(u.Username, Username) {
+			fmt.Println("USERNAME SUDAH DIPAKAI!")
+			return
+		}
+	}
+
 	fmt.Print("Password: ")
 	Password, _ = reader.ReadString('\n')
 	Password = strings.TrimSpace(Password)
-	// fmt.Scan(&Password)
 
 	if Password == "" {
 		fmt.Println("Password tidak boleh kosong!")
 		return
 	}
 
-	// buat user baru dengan ID otomatis (jumlah user baru + 1)
 	newUser := models.User{
-		ID:		len(users) + 1,
+		ID:       len(users) + 1,
 		Username: Username,
 		Password: Password,
 	}
 
-	// tambahkan user baru ke slice dan simpan ke file
 	users = append(users, newUser)
 	saveUsers(users)
 	fmt.Println("REGISTRASI BERHASIL! SILAKAN LOGIN.")
@@ -124,18 +120,16 @@ func Login() *models.User {
 	reader := bufio.NewReader(os.Stdin)
 
 	fmt.Print("Username: ")
-	// fmt.Scan(&Username)
 	Username, _ = reader.ReadString('\n')
 	Username = strings.TrimSpace(Username)
 
 	fmt.Print("Password: ")
-	// fmt.Scan(&Password)
 	Password, _ = reader.ReadString('\n')
 	Password = strings.TrimSpace(Password)
 
-	// cari user yang cocok dengan username dan password
+	// username tidak case-sensitive, password tetap harus sama persis
 	for i, u := range users {
-		if u.Username == Username && u.Password == Password {
+		if strings.EqualFold(u.Username, Username) && u.Password == Password {
 			fmt.Printf("SELAMAT DATANG, %s!\n", u.Username)
 			return &users[i]
 		}
